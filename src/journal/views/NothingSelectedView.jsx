@@ -14,17 +14,15 @@ export const NothingSelectedView = () => {
       <Grid
         item
         xs={ 12 }
-        sx={ { fonmtSize: 100, color: 'white' } }
       >
-        <StarOutlined />
+        <StarOutlined sx={ { fontSize: 80, color: 'white' } } />
       </Grid>
 
       <Grid
         item
         xs={ 12 }
-        sx={ { fonmtSize: 100, color: 'white' } }
       >
-        <Typography variant='h5' xcolor='white'>Select or create a new note</Typography>
+        <Typography variant='h5' color='white'>Select or create a new note</Typography>
       </Grid>
     </Grid>
   );
