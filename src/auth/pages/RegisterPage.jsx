@@ -64,7 +64,6 @@ export const RegisterPage = () => {
             </Typography>
 
             <Link component={ RouterLink } to='/auth/login' color='inherit'>
-
               Login
             </Link>
           </Grid>
