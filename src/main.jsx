@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { JournalApp } from './JournalApp';
 import { BrowserRouter } from 'react-router-dom';
+import { JournalApp } from './JournalApp';
+import { ReduxProvider } from './store';
 import './styles.css';
 
 ReactDOM.createRoot( document.getElementById( 'root' ) ).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <JournalApp />
-    </BrowserRouter>
+    <ReduxProvider>
+      <BrowserRouter>
+        <JournalApp />
+      </BrowserRouter>
+    </ReduxProvider>
   </React.StrictMode>,
 );
