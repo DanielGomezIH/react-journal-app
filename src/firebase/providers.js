@@ -16,21 +16,18 @@ export const signInWithGoogle = async () => {
 
     return {
       ok: true,
-
       uid,
       email,
       displayName,
       photoURL,
     };
   } catch ( error ) {
-    console.log( error );
 
     const errorCode = error.code;
     const errorMessage = error.message;
 
     return {
       ok: false,
-
       errorCode,
       errorMessage
     };

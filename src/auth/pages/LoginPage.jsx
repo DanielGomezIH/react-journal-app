@@ -8,12 +8,14 @@ import { checkingAuthentication, startGoogleSignIn } from '../../store';
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
 
+const defaultFormValues = {
+  email: 'danielivgho5@gmail.com',
+  password: '12345'
+};
+
 export const LoginPage = () => {
 
-  const { email, password, onInputChange } = useForm( {
-    email: 'danielivgho5@gmail.com',
-    password: '12345'
-  } );
+  const { email, password, onInputChange } = useForm( defaultFormValues );
 
   const { status } = useSelector( ( state ) => state.auth );
 
@@ -38,25 +40,25 @@ export const LoginPage = () => {
 
           <Grid item xs={ 12 } sx={ { mt: 2 } }>
             <TextField
-              name='email'
+              fullWidth
               label='Email'
+              name='email'
+              onChange={ onInputChange }
               placeholder='email@google.com'
               type='email'
-              fullWidth
               value={ email }
-              onChange={ onInputChange }
             />
           </Grid>
 
           <Grid item xs={ 12 } sx={ { mt: 2 } }>
             <TextField
-              name='password'
-              label='Password'
-              type='password'
-              placeholder='Password'
               fullWidth
-              value={ password }
+              label='Password'
+              name='password'
               onChange={ onInputChange }
+              placeholder='Password'
+              type='password'
+              value={ password }
             />
           </Grid>
 
@@ -79,9 +81,9 @@ export const LoginPage = () => {
             <Grid item xs={ 12 } sm={ 6 }>
               <Button
                 disabled={ isAuthenticating }
-                variant='outlined'
                 fullWidth
                 onClick={ onGoogleSignIn }
+                variant='outlined'
               >
                 <Google fontSize='small' />
 

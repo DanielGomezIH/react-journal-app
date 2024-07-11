@@ -1,39 +1,90 @@
 import { Link as RouterLink } from "react-router-dom";
-import { Google } from '@mui/icons-material';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
 import { AuthLayout } from '../layout/AuthLayout';
+import { useForm } from '../../hooks';
+import { useState } from 'react';
+
+const defaultFormValues = {
+  fullName: '',
+  email: '',
+  password: ''
+};
+
+const formValidations = {
+  fullName: [ ( value ) => value.length >= 1, 'Full name is required.' ],
+  email: [ ( value ) => value.includes( '@' ), 'Email must have @.' ],
+  password: [ ( value ) => value.length >= 6, 'Password must be more than 6 characters.' ]
+};
 
 export const RegisterPage = () => {
+
+  const [ formSubmitted, setFormSubmitted ] = useState( false );
+
+  const {
+    isFormValid,
+    fullNameValid,
+    emailValid,
+    passwordValid,
+    fullName,
+    email,
+    password,
+    onInputChange
+  } = useForm( defaultFormValues, formValidations );
+
+
+  const onSubmit = ( event ) => {
+    event.preventDefault();
+
+    setFormSubmitted( true );
+
+    console.log( { fullName, email, password } );
+  };
+
   return (
     <AuthLayout title='Create Account'>
 
-      <form>
+      <form onSubmit={ onSubmit }>
         <Grid container>
 
           <Grid item xs={ 12 } sx={ { mt: 2 } }>
             <TextField
-              label='Full name'
-              type='text'
-              placeholder='Joe Smith'
               fullWidth
+              label='Full name'
+              name='fullName'
+              onChange={ onInputChange }
+              placeholder='Joe Smith'
+              type='text'
+              value={ fullName }
+              error={ !!fullNameValid && formSubmitted }
+              helperText={ fullNameValid }
             />
           </Grid>
 
           <Grid item xs={ 12 } sx={ { mt: 2 } }>
             <TextField
+              fullWidth
               label='Email'
+              name='email'
+              onChange={ onInputChange }
               placeholder='email@google.com'
               type='email'
-              fullWidth
+              value={ email }
+              error={ !!emailValid && formSubmitted }
+              helperText={ emailValid }
             />
           </Grid>
 
           <Grid item xs={ 12 } sx={ { mt: 2 } }>
             <TextField
-              label='Password'
-              type='password'
-              placeholder='Password'
               fullWidth
+              label='Password'
+              name='password'
+              onChange={ onInputChange }
+              placeholder='Password'
+              type='password'
+              value={ password }
+              error={ !!passwordValid && formSubmitted }
+              helperText={ passwordValid }
             />
           </Grid>
 
@@ -44,8 +95,9 @@ export const RegisterPage = () => {
           >
             <Grid item xs={ 12 }>
               <Button
-                variant='contained'
                 fullWidth
+                type='submit'
+                variant='contained'
               >
                 Register
               </Button>
