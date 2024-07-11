@@ -3,15 +3,17 @@ import { Button, Grid, Link, TextField, Typography } from '@mui/material';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks';
 import { useState } from 'react';
+import { startCreatingUserWithEmailPassword } from '../../store/auth';
+import { useDispatch } from 'react-redux';
 
 const defaultFormValues = {
-  fullName: '',
+  displayName: '',
   email: '',
   password: ''
 };
 
 const formValidations = {
-  fullName: [ ( value ) => value.length >= 1, 'Full name is required.' ],
+  displayName: [ ( value ) => value.length >= 1, 'Full name is required.' ],
   email: [ ( value ) => value.includes( '@' ), 'Email must have @.' ],
   password: [ ( value ) => value.length >= 6, 'Password must be more than 6 characters.' ]
 };
@@ -19,13 +21,15 @@ const formValidations = {
 export const RegisterPage = () => {
 
   const [ formSubmitted, setFormSubmitted ] = useState( false );
+  const dispatch = useDispatch();
 
   const {
     isFormValid,
-    fullNameValid,
+    displayNameValid,
     emailValid,
     passwordValid,
-    fullName,
+    formState,
+    displayName,
     email,
     password,
     onInputChange
@@ -34,10 +38,11 @@ export const RegisterPage = () => {
 
   const onSubmit = ( event ) => {
     event.preventDefault();
-
     setFormSubmitted( true );
 
-    console.log( { fullName, email, password } );
+    if ( !isFormValid ) return;
+
+    dispatch( startCreatingUserWithEmailPassword( formState ) );
   };
 
   return (
@@ -50,13 +55,13 @@ export const RegisterPage = () => {
             <TextField
               fullWidth
               label='Full name'
-              name='fullName'
+              name='displayName'
               onChange={ onInputChange }
               placeholder='Joe Smith'
               type='text'
-              value={ fullName }
-              error={ !!fullNameValid && formSubmitted }
-              helperText={ fullNameValid }
+              value={ displayName }
+              error={ !!displayNameValid && formSubmitted }
+              helperText={ displayNameValid }
             />
           </Grid>
 

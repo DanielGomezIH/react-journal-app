@@ -9,8 +9,8 @@ import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
 
 const defaultFormValues = {
-  email: 'danielivgho5@gmail.com',
-  password: '12345'
+  email: '',
+  password: ''
 };
 
 export const LoginPage = () => {
