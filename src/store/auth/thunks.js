@@ -1,11 +1,9 @@
-import { signInWithGoogle, registerUserWithPassword } from '../../firebase';
+import { signInWithGoogle, registerUserWithPassword, loginWithEmailPassword } from '../../firebase';
 import { checkingCredentials, login, logout } from './';
 
 export const checkingAuthentication = ( email, password ) => {
   return async ( dispatch ) => {
-
     dispatch( checkingCredentials() );
-
   };
 };
 
@@ -14,11 +12,11 @@ export const startGoogleSignIn = () => {
 
     dispatch( checkingCredentials() );
 
-    const result = await signInWithGoogle();
+    const { ok, uid, email, displayName, photoURL, errorMessage } = await signInWithGoogle();
 
-    if ( !result.ok ) return dispatch( logout( result ) );
+    if ( !ok ) return dispatch( logout( { errorMessage } ) );
 
-    dispatch( login( result ) );
+    dispatch( login( uid, email, displayName, photoURL ) );
   };
 };
 
@@ -27,11 +25,28 @@ export const startCreatingUserWithEmailPassword = ( { displayName, email, passwo
 
     dispatch( checkingCredentials() );
 
-    const result = await registerUserWithPassword( { displayName, email, password } );
+    const { ok, uid, photoURL, errorMessage } = await registerUserWithPassword( { displayName, email, password } );
 
-    if ( !result.ok ) return dispatch( logout( result ) );
+    if ( !ok ) return dispatch( logout( { errorMessage } ) );
 
-    console.log( result );
+    dispatch( login( { uid, email, displayName, photoURL } ) );
+  };
+};
 
+export const startLoginWithEmailPassword = ( { email, password } ) => {
+  return async ( dispatch ) => {
+
+    dispatch( checkingCredentials() );
+
+    const { ok, uid, displayName, photoURL, errorMessage } = await loginWithEmailPassword( { email, password } );
+
+    if ( !ok ) return dispatch( logout( { errorMessage } ) );
+
+    dispatch( login( {
+      uid,
+      email,
+      displayName,
+      photoURL,
+    } ) );
   };
 };
