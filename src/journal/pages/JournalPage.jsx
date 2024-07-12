@@ -5,13 +5,13 @@ import { AddButton } from '../components';
 export const JournalPage = () => {
   return (
     <JournalLayout>
+      <>
+        <NothingSelectedView />
 
-      <NothingSelectedView />
+        {/* <NoteView /> */ }
 
-      {/* <NoteView /> */ }
-
-      <AddButton />
-
+        <AddButton />
+      </>
     </JournalLayout>
   );
 };
