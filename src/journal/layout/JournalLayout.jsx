@@ -1,6 +1,5 @@
 import { Box, Toolbar } from '@mui/material';
 import { NavBar, SideBar } from '../components';
-import PropTypes from 'prop-types';
 
 const drawerWidth = 240;
 
@@ -28,6 +27,3 @@ export const JournalLayout = ( { children } ) => {
   );
 };
 
-JournalLayout.propTypes = {
-  children: PropTypes.element.isRequired
-};
