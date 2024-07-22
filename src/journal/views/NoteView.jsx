@@ -23,7 +23,6 @@ export const NoteView = () => {
     return newDate.toUTCString();
   }, [ date ] );
 
-
   const onSaveNote = () => {
     dispatch( startSavingNote() );
   };
