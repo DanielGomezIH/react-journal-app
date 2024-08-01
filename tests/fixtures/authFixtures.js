@@ -1,4 +1,3 @@
-
 export const initialState = {
   status: 'checking',
   uid: null,
@@ -32,3 +31,6 @@ export const demoUser = {
   displayName: 'Demo User',
   photoURL: 'https://demo.jpg',
 };
+
+
+

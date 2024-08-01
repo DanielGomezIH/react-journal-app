@@ -3,6 +3,7 @@ import { FirebaseDB } from '../../firebase';
 import { addNewEmptyNote, deleteNoteById, savingNewNote, setActiveNote, setNotes, setPhotosToActiveNote, setSaving, updateNote } from './journalSlice';
 import { loadNotes, fileUpload } from '../../helpers';
 
+
 export const startNewNote = () => {
   return async ( dispatch, getState ) => {
 
